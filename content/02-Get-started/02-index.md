@@ -1,6 +1,7 @@
 ---
-title: Key concepts
-nav_order: 1
+layout: default
+title: Get started
+nav_order: 2
 ---
 
 # Get started

@@ -2,15 +2,27 @@
 title: Home
 layout: home
 ---
-test
 
-----
+# RESTyard
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+This project consists of a set of Extensions for Web API 2 Core projects. The purpose is to
+assist in building restful Web services using the [Siren Hypermedia Format](https://github.com/kevinswiber/siren) with much less coding.
+Using the Extensions it is possible to return HypermediaObjects as C# classes. Routes for HypermediaObjects and Actions are built using extended attribute routing.
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+Of course there might be some edge cases or flaws. Comments, suggestions, remarks and criticism are very welcome.
+
+For a first feel there is a demo project called [CarShack](https://github.com/bluehands/WebApiHypermediaExtensions/tree/master/Source/CarShack) which shows a great portion of the Extensions in use. It also shows how the routes were intended to be designed, although this is not enforced.
+
+To develop C# client applications there is a generic REST client.
+
+## On nuget.org
+The Extensions: [https://www.nuget.org/packages/RESTyard.AspNetCore](https://www.nuget.org/packages/RESTyard.AspNetCore)
+
+The Client: [https://www.nuget.org/packages/RESTyard.Client/](https://www.nuget.org/packages/RESTyard.Client/)
+
+## UI client
+There is a partner project which aims for a generic UI client: [HypermediaUi](https://github.com/MathiasReichardt/HypermediaUi)
+
+## Predecessor
+
+Formerly this project was named `Web Api Hypermedia Extensions`. We move to a new name so we have a whole namespace for partner projects and it is more easy to find.

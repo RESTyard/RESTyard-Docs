@@ -69,5 +69,5 @@ public class HypermediaCustomer : HypermediaObject
   - `HypermediaObjectAttribute`
   - `HypermediaPropertyAttribute`
 
-**Important**
+{: .highlight }
 All `HypermediaObject`'s used in a Link or as embedded Entity and all `HypermediaAction`'s in a `HypermediaObject` require that there is an attributed route for their Type. Otherwise the formatter is not able to resolve the URI and will throw an Exception.

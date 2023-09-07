@@ -1,5 +1,7 @@
 ---
+layout: default
 title: Key concepts
+nav_order: 1
 ---
 
 # Key concepts

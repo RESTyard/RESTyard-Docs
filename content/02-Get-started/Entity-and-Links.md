@@ -15,12 +15,13 @@ References to other `HypermediaObjects` are represented by references which deri
 
 Use a `HypermediaObjectReference` to create a reference. This reference can then be added to the Links dictionary with an associated relation:
 
-```
+```cshap
 Links.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
 ```
 
 or the Entities list (which can contain duplicates):
-```
+
+```cshap
 Entities.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
 ```
 
@@ -53,7 +54,7 @@ public async Task<ActionResult> GetEntity(int key)
 }
 ```
 
-The `CustomerRouteKeyProducer` is responsible for the translation of the domain specific key `object` to a key which is usable in the WebApi route context. It must be an anonymous object where all properties match the rout template parameters, here `{key:int}`.
+The `CustomerRouteKeyProducer` is responsible for the translation of the domain specific key `object` to a key which is usable in the route context. It must be an anonymous object where all properties match the rout template parameters, here `{key:int}`.
 
 ```csharp
 public object CreateFromKeyObject(object keyObject)
@@ -76,8 +77,7 @@ Links.Add(DefaultHypermediaRelations.Queries.All, new HypermediaObjectQueryRefer
 
 ## Direct References
 
-It might be necessary to reference a external source or a route which can not be build by the framework. In this case use the `ExternalReference` for links outside of the server 
-or `InternalReference` for server routes. These objects work around the default route resolving process by providing its own URI or route name. It can only be used in combination with `HypermediaObjectReference`.
+It might be necessary to reference a external source or a route which can not be build by the framework. In this case use the `ExternalReference` for links outside of the server or `InternalReference` for server routes. These objects work around the default route resolving process by providing its own URI or route name. It can only be used in combination with `HypermediaObjectReference`.
 As additional information for clients a external reference can contain a media type or a list of media types. This is useful if a client wants to switch the media type e.g. to a download or get the resource as image.
 
 Example references of an external site:

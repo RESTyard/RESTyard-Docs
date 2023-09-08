@@ -1,8 +1,7 @@
 ---
 layout: default
 title: URL key extraction
-parent: Get started
-nav_order: 4
+nav_order: 5
 ---
 
 # URL key extraction
@@ -23,7 +22,9 @@ public class FavoriteCustomer : IHypermediaActionParameter
 
 - The first parameter `typeof(HypermediaCustomer)` gives the expected `HypermediaObject` so the frame work knows which route layout it should use, and there to what kind of Resource the provided URL should lead.
 - The second parameter `schemaProperyName: "Customer"` is to identify the property which holds the URL in the payload JSON object.
-  Note: when using `AutoDeliverJsonSchemaForActionParameterTypes` the delivered schemas are adapted so a URL property with the name `Customer` is required.
+
+{: .highlight }
+When using `AutoDeliverJsonSchemaForActionParameterTypes` the delivered schemas are adapted so a URL property with the name `Customer` is required.
 
 The post would look like:
 

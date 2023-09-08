@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Route design
-parent: Get started
-nav_order: 5
+nav_order: 6
 ---
 
 # Recommendations for route design

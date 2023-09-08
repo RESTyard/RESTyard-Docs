@@ -1,8 +1,7 @@
 ---
 layout: default
 title: HypermediaObject
-parent: Get started
-nav_order: 1
+nav_order: 2
 ---
 
 # HypermediaObject

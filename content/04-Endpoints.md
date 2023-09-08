@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Endpoints
-parent: Get started
-nav_order: 3
+nav_order: 4
 ---
 
 # Endpoints
@@ -48,7 +47,7 @@ public async Task<ActionResult> NewCustomerAction([SingleParameterBinder(typeof(
 }
 ```
 
-Note:
+{: .highlight }
 Siren specifies that to trigger an action an array of parameters should be posted to the action route. To avoid wrapping parameters in an array class there is the SingleParameterBinder for convenience.
 
 A valid JSON for this route would look like this:
@@ -82,7 +81,7 @@ public ActionResult CreateCustomerParametersType()
 }
 ```
 
-Also see See: [URL key extraction]({% link content/02-Get-started/Url-key-extraction.md %})
+Also see See: [URL key extraction]({% link content/05-Url-key-extraction.md %})
 
 ## Actions with prefilled values
 

@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Notes on serialization
-parent: Get started
-nav_order: 6
+nav_order: 8
 ---
 
 # Notes on serialization

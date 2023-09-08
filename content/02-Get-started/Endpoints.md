@@ -82,7 +82,7 @@ public ActionResult CreateCustomerParametersType()
 }
 ```
 
-Also see See: [URL key extraction]({% Url-key-extraction.md %})
+Also see See: {% link 02-Get-started/Url-key-extraction.md %}
 
 ## Actions with prefilled values
 

@@ -5,8 +5,18 @@ nav_order: 5
 ---
 
 # Endpoints
+{: .no_toc }
 
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
 {:toc}
+</details>
+
+---
 
 The included SirenFormatter will build required links to other routes. At startup all routes attributed with:
 

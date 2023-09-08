@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Options
-nav_order: 7
+nav_order: 8
 ---
 
 # Options
@@ -16,4 +16,4 @@ For some configuration you can pass a `HypermediaExtensionsOptions` object to `A
 - `AutoDeliverJsonSchemaForActionParameterTypes`: if set to `true` (default) the routes to action parameters (implementing `IHypermediaActionParameter`) will be generated automatically except when there is a explicit rout created.
 
 - `ImplicitHypermediaActionParameterBinders`: if set to `true` (default) actions receiving a `IHypermediaActionParameter` will have a automatic binder added. 
-  The binder allows to use the `KeyFromUriAttribute` attribute. See: [URL key extraction]({% link content/05-Url-key-extraction.md %})
+  The binder allows to use the `KeyFromUriAttribute` attribute. See: [URL key extraction]({% link content/06-Url-key-extraction.md %})

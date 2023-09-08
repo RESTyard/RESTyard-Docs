@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Endpoints
-nav_order: 4
+nav_order: 5
 ---
 
 # Endpoints
@@ -81,7 +81,7 @@ public ActionResult CreateCustomerParametersType()
 }
 ```
 
-Also see See: [URL key extraction]({% link content/05-Url-key-extraction.md %})
+Also see See: [URL key extraction]({% link content/06-Url-key-extraction.md %})
 
 ## Actions with prefilled values
 

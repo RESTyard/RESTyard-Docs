@@ -56,10 +56,10 @@ public class HypermediaCustomer : HypermediaObject
 
 **In short:**
 
-- Public Properties will be formatted to Siren Properties. 
+- Public Properties will be formatted to Siren Properties.
 - No Properties which hold a class will be serialized
 - By default Properties which are null will not be added to the Siren document.
-- It is recommended to represented optional values as Nullable<T>
+- It is recommended to represented optional values as `Nullable<T>`
 - Properties with a `HypermediaActionBase` type will be added as Actions, but only if CanExecute returns true. Any required parameters will be added in the "fields" section of the Siren document.
 - Other `HypermediaObject`s can be embedded by adding them as a `HypermediaObjectReferenceBase` type to the entities collection Property (not shown in this example, see HypermediaCustomerQueryResult in the demo project).
 - Links to other `HypermediaObject`s can be added to the Links collection Property, also as `HypermediaObjectReferenceBase` (not shown in this example, see HypermediaCustomersRoot in the demo project).

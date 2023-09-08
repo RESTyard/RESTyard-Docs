@@ -21,7 +21,7 @@ callouts:
     color: red
 
 logo: "/assets/Ry-Icon_256x256.png"
-favicon_ico: "/assets/Ry-Icon_48x48.png"
+favicon_ico: "/assets/Ry-Icon_48x48.ico"
 
 nav_external_links:
   - title: RESTyard on GitHub

@@ -2,10 +2,12 @@
 layout: default
 title: Endpoints
 parent: Get started
-nav_order: 4
+nav_order: 3
 ---
 
 # Endpoints
+
+{:toc}
 
 The included SirenFormatter will build required links to other routes. At startup all routes attributed with:
 

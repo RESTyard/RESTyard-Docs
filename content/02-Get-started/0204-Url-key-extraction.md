@@ -7,12 +7,12 @@ nav_order: 4
 
 # URL key extraction
 
-When it is required to reference an other resource as action parameter it is often required to get the identifying keys from the resources URL. 
+When it is required to reference an other resource as action parameter it is often required to get the identifying keys from the resources URL.
 Enable `ImplicitHypermediaActionParameterBinders` to use this feature.
 This can be automated by using attributes in parameters.
 If there is only one key in use in the URL it can be attributed like this:
 
-``` csharp
+```csharp
 public class FavoriteCustomer : IHypermediaActionParameter
 {
     [Required]

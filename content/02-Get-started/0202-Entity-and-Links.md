@@ -2,12 +2,14 @@
 layout: default
 title: Embedded Entities and Links
 parent: Get started
-nav_order: 3
+nav_order: 2
 ---
 
 # Embedded Entities and Links
 
 References to other `HypermediaObjects` are represented by references which derive from `HypermediaObjectReferenceBase`. These references are the added to the `Links` list or the `Entities` list of a `HypermediaObject`.
+
+{:toc}
 
 ## Option 1: If a instance of the referenced HypermediaObject is available
 
@@ -22,7 +24,7 @@ or the Entities list (which can contain duplicates):
 Entities.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
 ```
 
-*Note*
+{: .highlight }
 The used function is an convenience extension contained in `RESTyard.AspNetCore.Hypermedia.Extensions`
 
 ## Option 2: If no instance is available or not necessary

@@ -5,10 +5,20 @@ nav_order: 4
 ---
 
 # Embedded Entities and Links
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
 
 References to other `HypermediaObjects` are represented by references which derive from `HypermediaObjectReferenceBase`. These references are the added to the `Links` list or the `Entities` list of a `HypermediaObject`.
-
-{:toc}
 
 ## Option 1: If a instance of the referenced HypermediaObject is available
 

@@ -6,7 +6,7 @@ nav_order: 0
 
 # RESTyard
 
-This project consists of a set of Extensions for Web API 2 Core projects. The purpose is to
+This project consists of a set of Extensions for ASP.NET Core projects. The purpose is to
 assist in building restful Web services using the [Siren Hypermedia Format](https://github.com/kevinswiber/siren) with much less coding.
 Using the Extensions it is possible to return HypermediaObjects as C# classes. Routes for HypermediaObjects and Actions are built using extended attribute routing.
 
@@ -17,11 +17,13 @@ For a first feel there is a demo project called [CarShack](https://github.com/bl
 To develop C# client applications there is a generic REST client.
 
 ## On nuget.org
+
 The Extensions: [https://www.nuget.org/packages/RESTyard.AspNetCore](https://www.nuget.org/packages/RESTyard.AspNetCore)
 
 The Client: [https://www.nuget.org/packages/RESTyard.Client/](https://www.nuget.org/packages/RESTyard.Client/)
 
 ## UI client
+
 There is a partner project which aims for a generic UI client: [HypermediaUi](https://github.com/MathiasReichardt/HypermediaUi)
 
 ## Predecessor

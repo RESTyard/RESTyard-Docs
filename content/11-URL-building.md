@@ -1,3 +1,9 @@
+---
+layout: default
+title: URL building
+nav_order: 10
+---
+
 # URL building
 
 Internally RESTyard uses the `UrlHelper` class to create required URL. To know what endpoint a `HTO` or `Action` have we need so additional information. The RouteAttributes (`HttpGetHypermediaObject`, `HttpDeleteHypermediaAction`, etc.) contain the `HTO` `Action` class (with an optional parameter type). This is why all `HTO` and `Action` have an own type.

@@ -25,8 +25,9 @@ Example configuration, for more details see [Forwarded Headers Middleware option
 ```csharp
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
+
     // Map headers
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedHost;
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
     // Address ranges of known proxies to accept forwarded headers from.
     options.KnownNetworks.Add(new IPNetwork(IPAddress.Any, 0));
 });

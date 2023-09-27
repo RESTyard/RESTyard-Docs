@@ -6,7 +6,7 @@ nav_order: 10
 
 # URL building
 
-Internally RESTyard uses the `UrlHelper` class to create required URL. To know what endpoint a `HTO` or `Action` have we need so additional information. The RouteAttributes (`HttpGetHypermediaObject`, `HttpDeleteHypermediaAction`, etc.) contain the `HTO` `Action` class (with an optional parameter type). This is why all `HTO` and `Action` have an own type.
+Internally RESTyard uses the `UrlHelper` class to create required URL. To know what endpoint a `HTO` or `Action` have we need so additional information. The RouteAttributes (`HttpGetHypermediaObject`, `HttpDeleteHypermediaAction`, etc.) contain the `HTO` `Action` class (with an optional parameter type). This is why all `HTO` and `Action` have an own type and all routes can in general only reply with one (non error) class. RESTyard needs to be able to do a mapping from `HTO` or `Action` to an endpoint.
 
 The RESTyard Attributes extend the ASP.Net native attributes e.g. `HttpGet->HttpGetHypermediaObject` or  `HttpDelete->HttpDeleteHypermediaAction` with a required Type. This type is used to build a register which maps a `HTO` or a `HypermediaAction` to an endpoint. This allows the RESTyard serializer to find required endpoints and build the URL.
 
@@ -25,7 +25,7 @@ Example configuration, for more details see [Forwarded Headers Middleware option
 ```csharp
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-    // map headers
+    // Map headers
     options.ForwardedHeaders = ForwardedHeaders.XForwardedHost;
     // Address ranges of known proxies to accept forwarded headers from.
     options.KnownNetworks.Add(new IPNetwork(IPAddress.Any, 0));

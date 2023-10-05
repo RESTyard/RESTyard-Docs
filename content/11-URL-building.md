@@ -31,4 +31,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     // Address ranges of known proxies to accept forwarded headers from.
     options.KnownNetworks.Add(new IPNetwork(IPAddress.Any, 0));
 });
+
+...
+
+// we use x-forwarded-host to build links (UrlHelper)
+app.UseForwardedHeaders();
 ```

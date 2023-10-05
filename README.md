@@ -1,5 +1,7 @@
 # just-the-docs-template
 
+**Deployed here [https://restyard.github.io/RESTyard-Docs/](https://restyard.github.io/RESTyard-Docs/)**
+
 This is a *bare-minimum* template to create a [Jekyll] site that:
 
 - uses the [Just the Docs] theme;

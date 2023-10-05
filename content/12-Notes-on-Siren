@@ -1,4 +1,10 @@
-# Siren
+---
+layout: default
+title: Notes on Siren
+nav_order: 11
+---
+
+# Notes on Siren
 
 We use [Siren Hypermedia Format](https://github.com/kevinswiber/siren) for exchange. We like it a lot but have found some limitations which needed us to deviate from the standard.
 

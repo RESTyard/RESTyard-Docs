@@ -24,7 +24,7 @@ public class HypermediaCustomer : HypermediaObject
     [HypermediaAction(Title = "Marks a Customer as a favorite buyer.")]
     public HypermediaActionCustomerMarkAsFavorite MarkAsFavoriteAction { get; private set; }
 
-    // Hides the Property so it will not be pressent in the Hypermedia.
+    // Hides the Property so it will not be pressent in the Hypermedia. Onyl on top level
     [FormatterIgnoreHypermediaProperty]
     public int Id { get; set; }
 
@@ -67,6 +67,8 @@ public class HypermediaCustomer : HypermediaObject
   - `HypermediaActionAttribute`
   - `HypermediaObjectAttribute`
   - `HypermediaPropertyAttribute`
+  
+  **Note:** This is only done for top level properties since the object tree is not traversed.
 
 {: .highlight }
 All `HypermediaObject`'s used in a Link or as embedded Entity and all `HypermediaAction`'s in a `HypermediaObject` require that there is an attributed route for their Type. Otherwise the formatter is not able to resolve the URI and will throw an Exception.

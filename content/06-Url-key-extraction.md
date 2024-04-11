@@ -41,7 +41,6 @@ The post would look like:
 The binder will then extract the customers value `1` from the URL and sets it to the parameter which is attributed.
 
 ## Extracting from multiple URLs
-
 {: .d-inline-block }
 
 (v4.3.0)
@@ -108,7 +107,6 @@ The corresponding post would look like:
 ```
 
 ### Extracting multiple keys from multiple URLs
-
 {: .d-inline-block }
 
 (v4.3.0)

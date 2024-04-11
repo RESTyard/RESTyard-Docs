@@ -44,7 +44,7 @@ The binder will then extract the customers value `1` from the URL and sets it to
 
 {: .d-inline-block }
 
-new (v4.3.0)
+(v4.3.0)
 {: .label .label-green }
 
 URL deconstruction can also be done for lists:
@@ -111,7 +111,7 @@ The corresponding post would look like:
 
 {: .d-inline-block }
 
-new (v4.3.0)
+(v4.3.0)
 {: .label .label-green }
 
 When deconstructing multiple URLs into multiple keys it is required

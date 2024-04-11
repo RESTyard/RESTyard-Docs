@@ -11,7 +11,7 @@ Although the framework is build on the intend of providing type information as m
 ## Dynamic Actions
 {: .d-inline-block }
 
-new (v4.2.0)
+(v4.2.0)
 {: .label .label-green }
 
 In certain scenarios an actions parameters (or not having any) is determined at runtime. This special case can be implemented using `DynamicHypermediaAction`.

@@ -6,7 +6,11 @@ nav_order: 10
 
 # Release Notes
 
-### RESTyard v4.2.0
+## RESTyard v4.3.0
+
+- Added URL deconstruction for list of URIs
+
+## RESTyard v4.2.0
 
 - New Action available `DynamicHypermediaAction` which is used for runtime parametrized actions
 - Fix missing PUT action handling in ApplicationModel

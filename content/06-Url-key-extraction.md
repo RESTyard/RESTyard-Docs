@@ -40,6 +40,38 @@ The post would look like:
 
 The binder will then extract the customers value `1` from the URL and sets it to the parameter which is attributed.
 
+## Extracting from multiple URLs
+
+{: .d-inline-block }
+
+new (v4.3.0)
+{: .label .label-green }
+
+URL deconstruction can also be done for lists:
+
+```csharp
+public class FavoriteCustomer : IHypermediaActionParameter
+{
+    [Required]
+    [KeyFromUri(typeof(HypermediaCustomer), schemaProperyName: "Customers")]
+    public List<int> CustomerId { get; set; }
+}
+
+The post would look like:
+
+```json
+[
+  {
+    "FavoriteCustomer": {
+      "Customers": [
+        "http://localhost:5000/Customers/1",
+        "http://localhost:5000/Customers/2"
+      ]
+    }
+  }
+]
+```
+
 ## More than one key
 
 If your resource is addressed using more than one key the binder needs additional information.
@@ -73,4 +105,26 @@ The corresponding post would look like:
     }
   }
 ]
+```
+
+### Extracting multiple keys from multiple URLs
+
+{: .d-inline-block }
+
+new (v4.3.0)
+{: .label .label-green }
+
+When deconstructing multiple URLs into multiple keys it is required
+that either all deconstruction targets are Lists or not. Else it would not be clear what values should be assigned.
+
+Example:
+
+``` csharp
+public class ParameterWithLists : IHypermediaActionParameter
+{
+    [KeyFromUri(typeof(HypermediaCar), schemaProperyName: "CarUris", routeTemplateParameterName: "brand")]
+    public List<string> Brands { get; set; }
+    [KeyFromUri(typeof(HypermediaCar), schemaProperyName: "CarUris", routeTemplateParameterName: "key")]
+    public List<int> CarIds { get; set; }
+}
 ```

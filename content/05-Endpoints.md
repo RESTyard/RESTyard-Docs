@@ -129,10 +129,17 @@ Controller example:
 
 ```csharp
 // controller
-[HttpPostHypermediaAction("UploadImage", typeof(UploadCarImageOp), AcceptedMediaType = DefaultMediaTypes.MultipartFormData)]
-public async Task<IActionResult> UploadCarImage()
+[HttpPostHypermediaAction(
+            "UploadImage",
+            typeof(HypermediaCarsRootHto.UploadCarImageOp),
+            AcceptedMediaType = DefaultMediaTypes.MultipartFormData)]
+public async Task<IActionResult> UploadCarImage(
+    [HypermediaUploadParameterFromForm]
+    HypermediaFileUploadActionParameter<UploadCarImageParameters> uploadParameters)
 {
-//...
+    var files = uploadParameters.Files; // Access uploaded files
+    var additionalParameter = uploadParameters.ParameterObject // Access generic additional parameter <UploadCarImageParameters>
+    //...
 }
 
 // action definition
@@ -142,7 +149,33 @@ public class UploadCarImageOp : FileUploadHypermediaAction
     {
     }
 }
-````
+```
+
+Files are uploaded using `multipart/form-data`. The additional parameter is added as a serialized json string to the key-value-dictionary of the form.
+
+c\# client example:
+
+```csharp
+// hco definition
+[HypermediaClientObject("CarsRoot")]
+public partial class HypermediaCarsRootHco : HypermediaClientObject
+{
+    [HypermediaCommand("UploadCarImage")]
+    public IHypermediaClientFileUploadFunction<CarImageHco, UploadCarImageParameters>? UploadCarImage { get; set; }
+}
+
+// usage
+HypermediaCarsRootHco hco;
+hco.UploadCarImage.ExecuteAsync(
+    new HypermediaFileUploadActionParameter<UploadCarImageParameters>(
+        FileDefinitions: [
+            new FileDefinition(async () => new MemoryStream(new byte[] { 1, 2, 3, 4 }), "Bytes", "Bytes.txt"),
+        ],
+        new UploadCarImageParameters(...)),
+    Resolver);
+```
+
+note that the name and filename are mandatory in order for the file to be recognized as a file and not as a "normal" parameter.
 
 ## Calling external APIs using Actions
 
@@ -155,9 +188,9 @@ public class ExternalActionNoParameters :HypermediaExternalAction
         : base(() => true, externalUri, httpMethod) { }
 }
 
-public class ExternalActionWitParameter :HypermediaExternalAction<ExternalActionParameters>
+public class ExternalActionWithParameter : HypermediaExternalAction<ExternalActionParameters>
 {
-    public ExternalActionWitParameter(Uri externalUri,
+    public ExternalActionWithParameter(Uri externalUri,
         HttpMethod httpMethod) 
         : base(() => true,
         externalUri,

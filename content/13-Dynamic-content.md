@@ -50,7 +50,7 @@ public ActionResult MyGenericParametersType([FromRoute] string schemaKey1, [From
 public class MyDynamicOp : DynamicHypermediaAction<GenericProcessingConfigureParameters>
 {
     // accepts dynamic values relevant for schema selection
-    public ConfigureProcessingForJobOp(string schemaKey1Value, string schemaKey2Value, bool hasParameters, object? prefilledValues = null) 
+    public MyDynamicOp(string schemaKey1Value, string schemaKey2Value, bool hasParameters, object? prefilledValues = null) 
         : base(hasParameters, prefilledValues)
     {
         // property names have to match the route for MyGenericParameters type, will be used to build the URL

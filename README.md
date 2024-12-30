@@ -2,6 +2,9 @@
 
 **Deployed here [https://restyard.github.io/RESTyard-Docs/](https://restyard.github.io/RESTyard-Docs/)**
 
+RUN  build: `docker run --rm --volume="${PWD}:/srv/jekyll:Z" -it jekyll/jekyll:latest /bin/bash -c "bundle install && bundle exec jekyll"`
+Preview: show with `http_server` in _site folder (node tool)
+
 This is a *bare-minimum* template to create a [Jekyll] site that:
 
 - uses the [Just the Docs] theme;
@@ -51,7 +54,7 @@ Note: If you are using a Jekyll version less than 3.5.0, use the `gems` key inst
 
 ## Publishing your site on GitHub Pages
 
-1.  If your created site is `YOUR-USERNAME/YOUR-SITE-NAME`, update `_config.yml` to:
+1. If your created site is `YOUR-USERNAME/YOUR-SITE-NAME`, update `_config.yml` to:
 
     ```yaml
     title: YOUR TITLE
@@ -64,9 +67,9 @@ Note: If you are using a Jekyll version less than 3.5.0, use the `gems` key inst
       Template Repository: https://github.com/YOUR-USERNAME/YOUR-SITE-NAME
     ```
 
-2.  Push your updated `_config.yml` to your site on GitHub.
+2. Push your updated `_config.yml` to your site on GitHub.
 
-3.  In your newly created repo on GitHub:
+3. In your newly created repo on GitHub:
     - go to the `Settings` tab -> `Pages` -> `Build and deployment`, then select `Source`: `GitHub Actions`.
     - if there were any failed Actions, go to the `Actions` tab and click on `Re-run jobs`.
 
@@ -74,11 +77,11 @@ Note: If you are using a Jekyll version less than 3.5.0, use the `gems` key inst
 
 Assuming [Jekyll] and [Bundler] are installed on your computer:
 
-1.  Change your working directory to the root directory of your site.
+1. Change your working directory to the root directory of your site.
 
-2.  Run `bundle install`.
+2. Run `bundle install`.
 
-3.  Run `bundle exec jekyll serve` to build your site and preview it at `localhost:4000`.
+3. Run `bundle exec jekyll serve` to build your site and preview it at `localhost:4000`.
 
     The built site is stored in the directory `_site`.
 
@@ -91,6 +94,11 @@ Just upload all the files in the directory `_site`.
 You're free to customize sites that you create with this template, however you like!
 
 [Browse our documentation][Just the Docs] to learn more about how to use this theme.
+
+## Local run with docker
+
+1. Get docker image : `jekyll/jekyll`
+2. Go to base folder of repo
 
 ----
 

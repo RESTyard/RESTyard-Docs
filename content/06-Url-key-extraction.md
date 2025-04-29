@@ -5,6 +5,67 @@ nav_order: 6
 ---
 
 # URL key extraction
+{: .d-inline-block }
+
+(v4.4.0)
+{: .label .label-green }
+
+When it is required to reference an other resource as action parameter it is often required to get the identifying keys from the resources URL.
+To get the key properties from a URI an interface ``IKeyFromUriService`` can be obtained from the DI container:
+```csharp
+public interface IKeyFromUriService
+{
+    Result<TKey> GetKeyFromUri<THto, TKey>(Uri uri)
+        where THto : HypermediaObject;
+}
+```
+
+This service will, given the `Uri`, the type of the HypermediaObject, extract all the properties defined in `TKey` from the `Uri` and return a `Result<TKey>`.
+Not that since this results a `Result<>` object, no Exceptions will be thrown, and all error cases are handled by returning a `Result.Error` case.
+
+## Example
+
+```csharp
+public class HypermediaCar : HypermediaObject
+{
+    [Key("id")]
+    public int? Id { get; set; }
+
+    [Key("brand")]
+    public string? Brand { get; set; }
+
+    public record HypermediaCarKey(int? Id, string? Brand);
+}
+```
+
+```csharp
+public class Parameter : IHypermediaActionParameter
+{
+    public Uri CarUri { get; set; }
+}
+```
+
+Given a HTO definition and the parameter, the key(s) would be extracted like this:
+```csharp
+var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCar, HypermediaCar.HypermediaCarKey>(parameter.CarUri);
+```
+
+## Keys from Code Generation
+{: .d-inline-block }
+
+(RESTyard.Generator v0.11.0)
+{: .label .label-green }
+
+If the RESTyard.Generator tool is used (template `server/csharp/v4.4`) to generate the HTOs from an XML schema, then the key object and an extension method are generated for each HTO to not have to specify the types explicitly:
+```csharp
+var keyResult = keyFromUriService.GetHypermediaCarKeyFromUri(uri); // Returns Result<HypermediaCar.HypermediaCarKey>
+```
+
+# URL key extraction (legacy)
+
+
+{: .highlight }
+The `KeyFromUriAttribute` was marked obsolete in favor of using the `IKeyFromUriService`, and may be removed in a future version.
 
 When it is required to reference an other resource as action parameter it is often required to get the identifying keys from the resources URL.
 Enable `ImplicitHypermediaActionParameterBinders` to use this feature.

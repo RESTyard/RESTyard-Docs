@@ -24,7 +24,7 @@ The Client: [https://www.nuget.org/packages/RESTyard.Client/](https://www.nuget.
 
 ## UI client
 
-There is a partner project which aims for a generic UI client: [HypermediaUi](https://github.com/MathiasReichardt/HypermediaUi)
+A RESTyard API can be access using a generic UI client: [HypermediaUi](https://github.com/RESTyard/HypermediaUI)
 
 ## Predecessor
 

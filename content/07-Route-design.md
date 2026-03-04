@@ -24,7 +24,7 @@ http://localhost:5000/Customers/CreateQuery
 http://localhost:5000/Customers/CreateCustomer
 ```
 
-- Entities are accessed through a collection but do not host child Entities. These should be handled in their own collections. The routes to the actual objects should not matter, so no need to nest them. This helps to flatten the Controller hierarchy and avoids deep routes. If a placeholder variable is required in the route template name it _key_ (see Known Issues below).
+- Entities are accessed through a collection but do not host child Entities. These should be handled in their own collections. The routes to the actual objects should not matter, so no need to nest them. This helps to flatten the Controller hierarchy and avoids deep routes. If a placeholder variable is required in the route template name it _key_.
 Examples
 
 ```html

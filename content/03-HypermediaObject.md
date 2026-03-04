@@ -24,7 +24,7 @@ public class HypermediaCustomer : HypermediaObject
     [HypermediaAction(Title = "Marks a Customer as a favorite buyer.")]
     public HypermediaActionCustomerMarkAsFavorite MarkAsFavoriteAction { get; private set; }
 
-    // Hides the Property so it will not be pressent in the Hypermedia. Onyl on top level
+    // Hides the Property so it will not be present in the Hypermedia. Only on top level
     [FormatterIgnoreHypermediaProperty]
     public int Id { get; set; }
 

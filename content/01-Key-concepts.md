@@ -6,7 +6,7 @@ nav_order: 1
 
 # Key concepts
 
-## Server side APS.NET
+## Server side ASP.NET
 
 RESTyard allows you to build a restful web server which responds with Siren documents without building a Siren class and assigning URIs to Links and embedded Entities. For this RESTyard provides two main components: the `HypermediaObject` class and new RouteAttributes extending the Web API RouteAttributes.
 

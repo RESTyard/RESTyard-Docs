@@ -42,7 +42,7 @@ public ActionResult GetRootDocument()
 The same goes for Actions:
 
 ```csharp
-[HttpPostHypermediaAction("CreateCustomer", typeof(HypermediaFunction<CreateCustomerParameters, Task<Customer>>))]
+[HttpPostHypermediaAction("CreateCustomer", typeof(HypermediaAction<CreateCustomerParameters>))]
 public async Task<ActionResult> NewCustomerAction([SingleParameterBinder(typeof(CreateCustomerParameters))] CreateCustomerParameters createCustomerParameters)
 {
     if (createCustomerParameters == null)
@@ -153,7 +153,7 @@ public class UploadCarImageOp : FileUploadHypermediaAction
 
 Files are uploaded using `multipart/form-data`. The additional parameter is added as a serialized json string to the key-value-dictionary of the form.
 
-c\# client example:
+C# client example:
 
 ```csharp
 // hco definition

@@ -24,13 +24,13 @@ References to other `HypermediaObjects` are represented by references which deri
 
 Use a `HypermediaObjectReference` to create a reference. This reference can then be added to the Links dictionary with an associated relation:
 
-```cshap
+```csharp
 Links.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
 ```
 
 or the Entities list (which can contain duplicates):
 
-```cshap
+```csharp
 Entities.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
 ```
 

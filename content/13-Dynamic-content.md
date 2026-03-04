@@ -6,7 +6,7 @@ nav_order: 12
 
 # Dynamic content
 
-Although the framework is build on the intend of providing type information as much as possible it can be necessary to deviate from this approach.
+Although the framework is built with the intent of providing type information as much as possible it can be necessary to deviate from this approach.
 
 ## Dynamic Actions
 {: .d-inline-block }
@@ -28,7 +28,7 @@ Prefilled values can be provided as object which will be serialized and as strin
 Example:
 ```csharp
 
-// Action route, retreiving raw json
+// Action route, retrieving raw json
 [HttpPostHypermediaAction("/MyDynamicAction", typeof(MyDynamicOp))]
 public ActionResult MyDynamicAction([FromBody] JsonElement rawObject)
 {

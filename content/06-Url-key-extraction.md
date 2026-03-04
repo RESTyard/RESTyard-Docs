@@ -21,7 +21,7 @@ public interface IKeyFromUriService
 ```
 
 This service will, given the `Uri`, the type of the HypermediaObject, extract all the properties defined in `TKey` from the `Uri` and return a `Result<TKey>`.
-Not that since this results a `Result<>` object, no Exceptions will be thrown, and all error cases are handled by returning a `Result.Error` case.
+Note that since this returns a `Result<>` object, no Exceptions will be thrown, and all error cases are handled by returning a `Result.Error` case.
 
 ## Example
 
@@ -116,6 +116,7 @@ public class FavoriteCustomer : IHypermediaActionParameter
     [KeyFromUri(typeof(HypermediaCustomer), schemaProperyName: "Customers")]
     public List<int> CustomerId { get; set; }
 }
+```
 
 The post would look like:
 
@@ -150,7 +151,7 @@ public class Parameter : IHypermediaActionParameter
 }
 ```
 
-Not two properties have an attribute indicating that they should be filled: `Brand` and `CarId`. Both share the same type of resource and `schemaProperyName` because the source of their value is a single URL in the JSON payload.
+Note: two properties have an attribute indicating that they should be filled: `Brand` and `CarId`. Both share the same type of resource and `schemaProperyName` because the source of their value is a single URL in the JSON payload.
 To configure which route template variable (see your attributed route) should be used to fill the parameter property `routeTemplateParameterName` is used.
 The route template: `{brand}/{key:int}`. Be careful to match the variable name and `routeTemplateParameterName`.
 

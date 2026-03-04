@@ -108,10 +108,12 @@ Example:
         {
           "name": "UploadFiles",
           "type": "file",
-          "accept": ".png, image/*'",
+          "accept": ".png, image/*",
           "maxFileSizeBytes": 209715200,
           "allowMultiple": false
         }
       ]
-    },
+    }
+  ]
+}
 ```

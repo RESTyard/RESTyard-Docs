@@ -29,7 +29,9 @@ The included SirenFormatter will build required links to other routes. At startu
 
 This means that for every HTO there must be a route with matching type.
 
-Example from the demo project CustomersRootController:
+## Returning a Siren document with `Ok()`
+
+Use `Ok(myHto)` to return a full Siren document. The formatter serializes the HTO with all resolved links, entities, and actions.
 
 ```csharp
 [HttpGet(""), HypermediaObjectEndpoint<HypermediaCustomersRootHto>]
@@ -39,7 +41,9 @@ public ActionResult GetRootDocument()
 }
 ```
 
-The same goes for Actions. The action endpoint references the HTO that owns the action and names the action property:
+## Returning a Location header with `this.Created()`
+
+Action endpoints typically don't return a Siren document. Instead they perform an operation and return HTTP 201 with a `Location` header pointing to the created or resulting resource. The action endpoint references the HTO that owns the action and names the action property:
 
 ```csharp
 [HttpPost("CreateCustomer"),
@@ -57,6 +61,22 @@ public async Task<ActionResult> NewCustomerAction(CreateCustomerParameters creat
     return this.Created(Link.To(createdCustomer));
 }
 ```
+
+`this.Created()` returns HTTP 201 with a `Location` header pointing to the created or resulting resource. The client follows this URL instead of building it — this is central to the hypermedia approach. There are several variants:
+
+```csharp
+// Link from an existing HTO instance
+return this.Created(Link.To(createdCustomer));
+
+// Link by key — no instance needed
+return this.Created(Link.ByKey(new HypermediaCarHto.Key(carId, brand)));
+
+// Link to a query result
+return this.Created(Link.ByQuery<HypermediaCustomerQueryResultHto>(query));
+```
+
+{: .warning }
+When using CORS, you must expose the `Location` header so browser clients can read it: `.WithExposedHeaders("Location")`
 
 {: .highlight }
 Siren specifies that to trigger an action an array of parameters should be posted to the action route. To avoid wrapping parameters in an array class there is the SingleParameterBinder for convenience.
@@ -81,7 +101,11 @@ The parameter binder also allows to pass a parameter object without the wrapping
 }
 ```
 
-Parameters for actions may define a route which provides additional type information to the client. These routes will be added to the Siren fields object as "class".
+## Action parameter schemas
+
+By default, RESTyard automatically generates schema endpoints for all action parameter types (implementing `IHypermediaActionParameter`). These are added to the Siren `fields` object as `class` so clients can discover the expected parameter structure. This is controlled by the `AutoDeliverJsonSchemaForActionParameterTypes` option (see [Options]({% link content/08-Options.md %})).
+
+Use `HypermediaActionParameterInfoEndpoint<T>` only when you need to override the auto-generated schema with custom logic:
 
 ```csharp
 [HttpGet("NewAddressType"), HypermediaActionParameterInfoEndpoint<NewAddress>]

@@ -16,7 +16,7 @@ To get the key properties from a URI an interface ``IKeyFromUriService`` can be 
 public interface IKeyFromUriService
 {
     Result<TKey> GetKeyFromUri<THto, TKey>(Uri uri)
-        where THto : HypermediaObject;
+        where THto : IHypermediaObject;
 }
 ```
 
@@ -26,7 +26,7 @@ Note that since this returns a `Result<>` object, no Exceptions will be thrown, 
 ## Example
 
 ```csharp
-public class HypermediaCar : HypermediaObject
+public class HypermediaCarHto : IHypermediaObject
 {
     [Key("id")]
     public int? Id { get; set; }
@@ -47,7 +47,7 @@ public class Parameter : IHypermediaActionParameter
 
 Given a HTO definition and the parameter, the key(s) would be extracted like this:
 ```csharp
-var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCar, HypermediaCar.HypermediaCarKey>(parameter.CarUri);
+var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCarHto, HypermediaCarHto.HypermediaCarKey>(parameter.CarUri);
 ```
 
 ## Keys from Code Generation
@@ -58,7 +58,7 @@ var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCar, HypermediaCar.Hyp
 
 If the RESTyard.Generator tool is used (template `server/csharp/v4.4`) to generate the HTOs from an XML schema, then the key object and an extension method are generated for each HTO to not have to specify the types explicitly:
 ```csharp
-var keyResult = keyFromUriService.GetHypermediaCarKeyFromUri(uri); // Returns Result<HypermediaCar.HypermediaCarKey>
+var keyResult = keyFromUriService.GetHypermediaCarKeyFromUri(uri); // Returns Result<HypermediaCarHto.HypermediaCarKey>
 ```
 
 # URL key extraction (legacy)
@@ -157,7 +157,7 @@ The route template: `{brand}/{key:int}`. Be careful to match the variable name a
 
 The corresponding post would look like:
 
-``` csharp
+``` json
 [
   {
     "HypermediaActionCustomerBuysCar.Parameter": {

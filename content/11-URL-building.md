@@ -6,9 +6,9 @@ nav_order: 10
 
 # URL building
 
-Internally RESTyard uses the `LinkGenerator` class to create required URL. To know what endpoint a `HTO` or `Action` have we need so additional information. The RouteAttributes (`HttpGetHypermediaObject`, `HttpDeleteHypermediaAction`, etc.) contain the `HTO` `Action` class (with an optional parameter type). This is why all `HTO` and `Action` have an own type and all routes can in general only reply with one (non error) class. RESTyard needs to be able to do a mapping from `HTO` or `Action` to an endpoint.
+Internally RESTyard uses the `LinkGenerator` class to create required URLs. To know what endpoint an HTO or Action has, additional information is needed. The route attributes (`HypermediaObjectEndpoint<THto>`, `HypermediaActionEndpoint<THto>`, etc.) contain the HTO or Action type. This is why all HTOs and Actions have their own type and all routes can in general only reply with one (non-error) class. RESTyard needs to be able to do a mapping from HTO or Action to an endpoint.
 
-The RESTyard Attributes extend the ASP.Net native attributes e.g. `HttpGet->HttpGetHypermediaObject` or  `HttpDelete->HttpDeleteHypermediaAction` with a required Type. This type is used to build a register which maps a `HTO` or a `HypermediaAction` to an endpoint. This allows the RESTyard serializer to find required endpoints and build the URL.
+The RESTyard attributes are combined with standard ASP.NET attributes (e.g. `[HttpGet, HypermediaObjectEndpoint<MyHto>]`) and provide the type used to build a register which maps an HTO or a `HypermediaAction` to an endpoint. This allows the RESTyard serializer to find required endpoints and build the URL.
 
 {: .highlight }
 For debugging or logging routes can still have a unique name. If none is given RESTyard will generate one.

@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Embedded Entities and Links
-nav_order: 4
+title: Links and Embedded Entities
+parent: Building your API
+nav_order: 2
 ---
 
-# Embedded Entities and Links
+# Links and Embedded Entities
 {: .no_toc }
 
 <details open markdown="block">

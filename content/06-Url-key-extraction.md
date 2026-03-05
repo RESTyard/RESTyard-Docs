@@ -1,7 +1,8 @@
 ---
 layout: default
 title: URL key extraction
-nav_order: 6
+parent: Advanced
+nav_order: 1
 ---
 
 # URL key extraction

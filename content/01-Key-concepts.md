@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Key concepts
-nav_order: 1
+parent: Getting started
+nav_order: 2
 ---
 
 # Key concepts

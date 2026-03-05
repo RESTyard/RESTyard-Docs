@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Release Notes
-nav_order: 13
+title: Release notes
+parent: Reference
+nav_order: 5
 ---
 
 # Release Notes

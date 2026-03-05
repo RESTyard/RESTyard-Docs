@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Options
-nav_order: 8
+title: Configuration
+parent: Reference
+nav_order: 1
 ---
 
-# Options
+# Configuration
 {: .no_toc }
 
 <details open markdown="block">

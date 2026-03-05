@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Route design
-nav_order: 7
+parent: Building your API
+nav_order: 4
 ---
 
 # Recommendations for route design

@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Get started
-nav_order: 2
+parent: Getting started
+nav_order: 1
 ---
 
 # Get started
@@ -135,6 +136,6 @@ All links are automatically resolved from the attributed routes — you never wr
 ## Next steps
 
 - [HypermediaObject]({% link content/03-HypermediaObject.md %}) — define HTOs with properties, actions, and links
-- [Embedded Entities and Links]({% link content/04-Entity-and-Links.md %}) — reference other HTOs
+- [Links and Embedded Entities]({% link content/04-Entity-and-Links.md %}) — reference other HTOs
 - [Endpoints]({% link content/05-Endpoints.md %}) — route attributes, actions, queries, and file uploads
-- [Options]({% link content/08-Options.md %}) — configuration options
+- [Configuration]({% link content/08-Options.md %}) — configuration options

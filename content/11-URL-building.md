@@ -1,10 +1,11 @@
 ---
 layout: default
-title: URL building
-nav_order: 10
+title: URL resolution
+parent: Reference
+nav_order: 3
 ---
 
-# URL building
+# URL resolution
 
 Internally RESTyard uses the `LinkGenerator` class to create required URLs. To know what endpoint an HTO or Action has, additional information is needed. The route attributes (`HypermediaObjectEndpoint<THto>`, `HypermediaActionEndpoint<THto>`, etc.) contain the HTO or Action type. This is why all HTOs and Actions have their own type and all routes can in general only reply with one (non-error) class. RESTyard needs to be able to do a mapping from HTO or Action to an endpoint.
 

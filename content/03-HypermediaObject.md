@@ -1,7 +1,8 @@
 ---
 layout: default
 title: HypermediaObject
-nav_order: 3
+parent: Building your API
+nav_order: 1
 ---
 
 # HypermediaObject
@@ -90,8 +91,8 @@ public record MarkAsFavoriteParameters(Uri Customer) : IHypermediaActionParamete
 - Properties which hold a class are recursively serialized (their public properties become nested JSON objects). Note that HTO-specific attributes like `[FormatterIgnoreHypermediaProperty]` are only applied on top-level properties, not inside nested classes.
 - By default properties which are null will not be added to the Siren document
 - It is recommended to represent optional values as `Nullable<T>`
-- Links to other HTOs are typed `ILink<THto>` properties decorated with `[Relations(["..."])]` — see [Embedded Entities and Links]({% link content/04-Entity-and-Links.md %})
-- Embedded entities use `List<IEmbeddedEntity<THto>>` populated with `EmbeddedEntity.Embed<T>()` — see [Embedded Entities and Links]({% link content/04-Entity-and-Links.md %})
+- Links to other HTOs are typed `ILink<THto>` properties decorated with `[Relations(["..."])]` — see [Links and Embedded Entities]({% link content/04-Entity-and-Links.md %})
+- Embedded entities use `List<IEmbeddedEntity<THto>>` populated with `EmbeddedEntity.Embed<T>()` — see [Links and Embedded Entities]({% link content/04-Entity-and-Links.md %})
 - Properties with a `HypermediaActionBase` type will be added as Actions, but only if `CanExecute()` returns true. Action types derive from `HypermediaAction<TParameter>` (with parameter) or `HypermediaAction` (parameter-less). Required parameters will be added in the "fields" section of the Siren document.
 - Action parameters implement `IHypermediaActionParameter` (records are recommended)
 - Properties, Actions and HTOs themselves can be attributed e.g. to give them a fixed name:

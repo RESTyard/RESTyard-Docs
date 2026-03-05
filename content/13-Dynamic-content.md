@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Dynamic content
-nav_order: 12
+title: Dynamic actions
+parent: Advanced
+nav_order: 2
 ---
 
-# Dynamic content
+# Dynamic actions
 
 Although the framework is built with the intent of providing type information as much as possible it can be necessary to deviate from this approach.
 

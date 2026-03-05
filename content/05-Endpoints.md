@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Endpoints
-nav_order: 5
+parent: Building your API
+nav_order: 3
 ---
 
 # Endpoints
@@ -103,7 +104,7 @@ The parameter binder also allows to pass a parameter object without the wrapping
 
 ## Action parameter schemas
 
-By default, RESTyard automatically generates schema endpoints for all action parameter types (implementing `IHypermediaActionParameter`). These are added to the Siren `fields` object as `class` so clients can discover the expected parameter structure. This is controlled by the `AutoDeliverJsonSchemaForActionParameterTypes` option (see [Options]({% link content/08-Options.md %})).
+By default, RESTyard automatically generates schema endpoints for all action parameter types (implementing `IHypermediaActionParameter`). These are added to the Siren `fields` object as `class` so clients can discover the expected parameter structure. This is controlled by the `AutoDeliverJsonSchemaForActionParameterTypes` option (see [Configuration]({% link content/08-Options.md %})).
 
 Use `HypermediaActionParameterInfoEndpoint<T>` only when you need to override the auto-generated schema with custom logic:
 

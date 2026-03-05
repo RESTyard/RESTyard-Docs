@@ -18,86 +18,109 @@ nav_order: 4
 
 ---
 
-References to other `HypermediaObjects` are represented by references which derive from `HypermediaObjectReferenceBase`. These references are the added to the `Links` list or the `Entities` list of a `HypermediaObject`.
+Links and embedded entities are declared as typed properties on your HTO class, decorated with `[Relations(["..."])]`.
 
-## Option 1: If a instance of the referenced HypermediaObject is available
+## Links
 
-Use a `HypermediaObjectReference` to create a reference. This reference can then be added to the Links dictionary with an associated relation:
+### Option 1: If an instance of the referenced HTO is available
+
+Use `Link.To()` to create a link from an existing instance:
 
 ```csharp
-Links.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
+[Relations(["NiceCar"])]
+public ILink<HypermediaCarHto> NiceCar { get; set; }
+
+// In constructor
+NiceCar = Link.To(carInstance);
 ```
 
-or the Entities list (which can contain duplicates):
+### Option 2: If no instance is available (key reference)
+
+Use `Link.ByKey<T>()` to reference an HTO by its key without instantiating it:
 
 ```csharp
-Entities.Add("NiceCar", new HypermediaObjectReference(new HypermediaCar("VW", 2)));
+[Relations(["BestCustomer"])]
+public ILink<HypermediaCustomerHto> BestCustomer { get; set; }
+
+// In constructor — reference by key only
+BestCustomer = Link.ByKey<HypermediaCustomerHto>(new HypermediaCustomerHto.Key(1));
 ```
 
-{: .highlight }
-The used function is an convenience extension contained in `RESTyard.AspNetCore.Hypermedia.Extensions`
+The framework will resolve the URL using the key and the route registered for `HypermediaCustomerHto`. The `Key` record must derive from `HypermediaObjectKeyBase<T>` and provide the route template values. For simple cases, you can use `[Key]` attributes on HTO properties instead (see [Endpoints]({% link content/05-Endpoints.md %})).
 
-## Option 2: If no instance is available or not necessary
+### Option 3: If a query result should be referenced
 
-To allow referencing of HypermediaObjects without the need to instantiate them, for reference purpose only, there are two additional references available.
-
-use a `HypermediaObjectKeyReference` if the object requires a key to be identified e.g. the Customers id.
+Use `Link.ByQuery<T>()` to reference a query result HTO. The query object is serialized into the URL's query string:
 
 ```csharp
-Links.Add("BestCustomer", new HypermediaObjectKeyReference(typeof(HypermediaCustomer), 1));
+[Relations(["all"])]
+public ILink<HypermediaCustomerQueryResultHto> All { get; set; }
+
+// In constructor
+All = Link.ByQuery<HypermediaCustomerQueryResultHto>(allQuery);
 ```
 
-The reference requires the type of the referenced HypermediaObject, here `HypermediaCustomer` and a key which is used by the related route to identify the desired entity. The framework will pass the key object to the `KeyProducer` instance which is assigned to the HypermediaObject's route, here `CustomerRouteKeyProducer`. Explicit assignment of RouteKeyProducers is optional. `KeyAttribute` can be used alternatively on key properties of the HypermediaObject. For more details on attributed routes see [Attributed routes](## Attributed routes).
+### Optional links
 
-Example from the CarShack demo project `CustomerController.cs`
+Links can be nullable to indicate they are conditionally present. You can use `Option<T>` from FunicularSwitch to map:
 
 ```csharp
-[HttpGetHypermediaObject("{key:int}", typeof(HypermediaCustomer), typeof(CustomerRouteKeyProducer))]
-public async Task<ActionResult> GetEntity(int key)
-{
-..
-        var customer = await customerRepository.GetEnitityByKeyAsync(key);
-        var result = new HypermediaCustomer(customer);
-        return Ok(result);
-...
-}
+[Relations(["OkaySite"])]
+public ExternalLink? OkaySite { get; set; }
+
+// In constructor — conditionally present
+OkaySite = okaySite.Map(some => Link.External(some)).GetValueOrDefault();
 ```
 
-The `CustomerRouteKeyProducer` is responsible for the translation of the domain specific key `object` to a key which is usable in the route context. It must be an anonymous object where all properties match the rout template parameters, here `{key:int}`.
+## Embedded Entities
+
+Use `List<IEmbeddedEntity<THto>>` to embed a list of HTOs. Populate with `EmbeddedEntity.Embed<T>()`:
 
 ```csharp
-public object CreateFromKeyObject(object keyObject)
-{
-    return new { key = keyObject };
-}
+[Relations(["Customers"])]
+public List<IEmbeddedEntity<HypermediaCustomerHto>> Customers { get; set; }
+
+// In constructor
+Customers = customerList
+    .Select(c => EmbeddedEntity.Embed<HypermediaCustomerHto>(c))
+    .ToList();
 ```
 
-## Option 3: If a query result should be referenced
-
-Use a `HypermediaObjectQueryReference` if the object requires also query object `IHypermediaQuery` to be created e.g. a result object which contains several Customers.
-For a reference to a query result: `HypermediaQueryResult` it is also required to provide the query to the reference, so the link to the object can be constructed.
-
-Example from `HypermediaCustomersRoot.cs`:
+A single embedded entity can be nullable. If `null`, it will be omitted from the Siren output:
 
 ```csharp
-var allQuery = new CustomerQuery();
-Links.Add(DefaultHypermediaRelations.Queries.All, new HypermediaObjectQueryReference(typeof(HypermediaCustomerQueryResult), allQuery));
+[Relations(["FeaturedItem"])]
+public IEmbeddedEntity<HypermediaCarHto>? FeaturedItem { get; set; }
+
+// In constructor — conditionally present
+FeaturedItem = featuredCar is not null
+    ? EmbeddedEntity.Embed<HypermediaCarHto>(featuredCar)
+    : null;
 ```
 
-## Direct References
+## External and Internal References
 
-It might be necessary to reference a external source or a route which can not be build by the framework. In this case use the `ExternalReference` for links outside of the server or `InternalReference` for server routes. These objects work around the default route resolving process by providing its own URI or route name. It can only be used in combination with `HypermediaObjectReference`.
-As additional information for clients a external reference can contain a media type or a list of media types. This is useful if a client wants to switch the media type e.g. to a download or get the resource as image.
-
-Example references of an external site:
+For links to sources outside the server or routes that cannot be built by the framework, use `ExternalReference` or `InternalReference` with `Link.External()`.
 
 ```csharp
-Links.Add("GreatSite", new ExternalReference(new Uri("http://www.example.com/")));
-Links.Add("GreatSite", new ExternalReference(new Uri("http://www.example.com/")).WithAvailableMediaType("image/png"));
-Links.Add("GreatSite", new ExternalReference(new Uri("http://www.example.com/")).WithAvailableMediaTypes(new []{"application/xml", "image/png"}));
+[Relations(["GreatSite"])]
+public ExternalLink GreatSite { get; set; }
 
-Links.Add("GreatSite", new InternalReference("My_Route_Name"));
-Links.Add("GreatSite", new InternalReference("My_Route_Name", new {routevariable1 = 1}));
-Links.Add("GreatSite", new InternalReference("My_Route_Name").WithAvailableMediaType("image/png"));
-Links.Add("GreatSite", new InternalReference("My_Route_Name").WithAvailableMediaTypes(new []{"application/xml", "image/png"}));
+// In constructor
+GreatSite = Link.External(new HypermediaObjectReference(
+    new ExternalReference(new Uri("https://www.example.com/"))
+        .WithAvailableMediaType("text/html")));
+```
+
+An external reference can contain a media type or a list of media types. This is useful if a client wants to switch the media type e.g. to a download or get the resource as an image.
+
+```csharp
+// External references with media types
+new ExternalReference(new Uri("https://www.example.com/")).WithAvailableMediaType("image/png")
+new ExternalReference(new Uri("https://www.example.com/")).WithAvailableMediaTypes(["application/xml", "image/png"])
+
+// Internal references (by route name) for server routes that can't be built by the framework
+new InternalReference("My_Route_Name")
+new InternalReference("My_Route_Name", new { routevariable1 = 1 })
+new InternalReference("My_Route_Name").WithAvailableMediaType("image/png")
 ```

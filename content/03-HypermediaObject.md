@@ -35,37 +35,13 @@ public class HypermediaCustomerHto : IHypermediaObject
     [Relations([DefaultHypermediaRelations.Self])]
     public ILink<HypermediaCustomerHto> Self { get; set; }
 
-    // Actions — only included in Siren output if CanExecute() returns true
+    // Actions — see the Actions page for details
     [HypermediaAction(Name = "CustomerMove", Title = "A Customer moved to a new location.")]
     public CustomerMoveOp CustomerMove { get; set; }
 
-    [HypermediaAction(Name = "MarkAsFavorite", Title = "Marks a Customer as a favorite buyer.")]
-    public MarkAsFavoriteOp MarkAsFavorite { get; set; }
-
-    public HypermediaCustomerHto(int id, string? name, int? age, AddressTo? address, bool isFavorite,
-        CustomerMoveOp customerMove, MarkAsFavoriteOp markAsFavorite)
-    {
-        Id = id;
-        Name = name;
-        Age = age;
-        Address = address;
-        IsFavorite = isFavorite;
-        CustomerMove = customerMove;
-        MarkAsFavorite = markAsFavorite;
-        PurchaseHistory = Link.ByQuery<CustomerPurchaseHistoryHto>(
-            new CustomerPurchaseHistoryQuery(), new CustomerPurchaseHistoryHto.Key(id));
-        Self = Link.To(this);
-    }
-
-    // Action types — derive from HypermediaAction<TParameter> or HypermediaAction (parameter-less)
     public class CustomerMoveOp : HypermediaAction<NewAddress>
     {
         public CustomerMoveOp(Func<bool> canExecute) : base(canExecute) { }
-    }
-
-    public class MarkAsFavoriteOp : HypermediaAction<MarkAsFavoriteParameters>
-    {
-        public MarkAsFavoriteOp(Func<bool> canExecute) : base(canExecute) { }
     }
 
     // Key record for route resolution (see Endpoints page)
@@ -78,10 +54,8 @@ public class HypermediaCustomerHto : IHypermediaObject
     }
 }
 
-// Action parameters are records implementing IHypermediaActionParameter
 public record NewAddress(AddressTo Address) : IHypermediaActionParameter;
 public record AddressTo(string Street, string Number, string City, string ZipCode);
-public record MarkAsFavoriteParameters(Uri Customer) : IHypermediaActionParameter;
 ```
 
 **In short:**
@@ -93,8 +67,7 @@ public record MarkAsFavoriteParameters(Uri Customer) : IHypermediaActionParamete
 - It is recommended to represent optional values as `Nullable<T>`
 - Links to other HTOs are typed `ILink<THto>` properties decorated with `[Relations(["..."])]` — see [Links and Embedded Entities]({% link content/04-Entity-and-Links.md %})
 - Embedded entities use `List<IEmbeddedEntity<THto>>` populated with `EmbeddedEntity.Embed<T>()` — see [Links and Embedded Entities]({% link content/04-Entity-and-Links.md %})
-- Properties with a `HypermediaActionBase` type will be added as Actions, but only if `CanExecute()` returns true. Action types derive from `HypermediaAction<TParameter>` (with parameter) or `HypermediaAction` (parameter-less). Required parameters will be added in the "fields" section of the Siren document.
-- Action parameters implement `IHypermediaActionParameter` (records are recommended)
+- Actions are properties deriving from `HypermediaAction<TParameter>` or `HypermediaAction`, only included if `CanExecute()` returns true — see [Actions]({% link content/04b-Actions.md %})
 - Properties, Actions and HTOs themselves can be attributed e.g. to give them a fixed name:
   - `FormatterIgnoreHypermediaPropertyAttribute`
   - `HypermediaActionAttribute`

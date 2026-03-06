@@ -135,7 +135,8 @@ All links are automatically resolved from the attributed routes — you never wr
 
 ## Next steps
 
-- [HypermediaObject]({% link content/03-HypermediaObject.md %}) — define HTOs with properties, actions, and links
+- [HypermediaObject]({% link content/03-HypermediaObject.md %}) — define HTOs with properties and links
 - [Links and Embedded Entities]({% link content/04-Entity-and-Links.md %}) — reference other HTOs
-- [Endpoints]({% link content/05-Endpoints.md %}) — route attributes, actions, queries, and file uploads
+- [Actions]({% link content/04b-Actions.md %}) — define operations clients can perform
+- [Endpoints]({% link content/05-Endpoints.md %}) — route attributes, queries, and file uploads
 - [Configuration]({% link content/08-Options.md %}) — configuration options

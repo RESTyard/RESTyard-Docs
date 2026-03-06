@@ -2,7 +2,7 @@
 layout: default
 title: Endpoints
 parent: Building your API
-nav_order: 3
+nav_order: 4
 ---
 
 # Endpoints
@@ -119,39 +119,13 @@ public ActionResult NewAddressType()
 
 Also see: [URL key extraction]({% link content/06-Url-key-extraction.md %})
 
-## Actions with prefilled values
-
-Actions can supply prefilled values so a form is already filled with server provided content. Actions with parameters have an optional parameter:
-
-```csharp
-public class CreateQueryOp : HypermediaAction<CustomerQuery>
-{
-    public CreateQueryOp(Func<bool> canExecute, CustomerQuery? prefilledValues = default)
-        : base(canExecute, prefilledValues)
-    {
-    }
-}
-```
-
-## Actions with acceptable media type
-
-The `HypermediaActionEndpoint` attribute is combined with standard HTTP method attributes. To specify an acceptable media type, use the `DefaultMediaTypes` constants:
-
-```csharp
-[HttpPost("UploadImage"),
- HypermediaActionEndpoint<HypermediaCarsRootHto>(nameof(HypermediaCarsRootHto.UploadCarImage), DefaultMediaTypes.MultipartFormData)]
-```
-
-Will be rendered to Siren as `type` on the action. Default is `application/json`.
-
 ## File upload actions
 
-Use the `FileUploadHypermediaAction` or `ExternalFileUploadHypermediaAction` to specify a file upload. Pass `FileUploadConfiguration` to send information to the client about allowed behavior.
+Use `FileUploadHypermediaAction` or `FileUploadHypermediaAction<TParameter>` for file uploads (see [Actions — File upload actions]({% link content/04b-Actions.md %}#file-upload-actions) for the action definition). The endpoint uses `DefaultMediaTypes.MultipartFormData`:
 
 Controller example:
 
 ```csharp
-// controller
 [HttpPost("UploadImage"),
  HypermediaActionEndpoint<HypermediaCarsRootHto>(nameof(HypermediaCarsRootHto.UploadCarImage), DefaultMediaTypes.MultipartFormData)]
 public async Task<IActionResult> UploadCarImage(
@@ -159,17 +133,8 @@ public async Task<IActionResult> UploadCarImage(
     HypermediaFileUploadActionParameter<UploadCarImageParameters> uploadParameters)
 {
     var files = uploadParameters.Files; // Access uploaded files
-    var additionalParameter = uploadParameters.ParameterObject; // Access generic additional parameter <UploadCarImageParameters>
+    var additionalParameter = uploadParameters.ParameterObject; // Access additional typed parameter
     //...
-}
-
-// action definition
-public class UploadCarImageOp : FileUploadHypermediaAction<UploadCarImageParameters>
-{
-    public UploadCarImageOp(Func<bool> canExecute, FileUploadConfiguration? fileUploadConfiguration = null)
-        : base(canExecute, fileUploadConfiguration)
-    {
-    }
 }
 ```
 
@@ -198,45 +163,6 @@ hco.UploadCarImage.ExecuteAsync(
 ```
 
 Note that the name and filename are mandatory in order for the file to be recognized as a file and not as a "normal" parameter.
-
-## Calling external APIs using Actions
-
-If it is necessary to call an external API and expose that call as an action there is `HypermediaExternalAction<TParameter>` and `HypermediaExternalAction` to be used as base for action types.
-
-```csharp
-public class ExternalActionNoParameters : HypermediaExternalAction
-{
-    public ExternalActionNoParameters(Uri externalUri, string httpMethod)
-        : base(() => true, externalUri, httpMethod) { }
-}
-
-public class ExternalActionWithArgument : HypermediaExternalAction<ExternalActionParameters>
-{
-    public ExternalActionWithArgument(
-        Uri externalUri,
-        string httpMethod,
-        string acceptedMediaType,
-        ExternalActionParameters prefilledValues)
-        : base(() => true, externalUri, httpMethod, acceptedMediaType, prefilledValues) { }
-}
-
-public class ExternalActionParameters : IHypermediaActionParameter
-{
-    public int AInt { get; }
-    public ExternalActionParameters(int aInt) { AInt = aInt; }
-}
-
-// usage in HTO:
-public ExternalActionNoParameters ExternalAction { get; init; }
-    = new ExternalActionNoParameters(new Uri("http://www.example.com"), HttpMethod.POST);
-
-public ExternalActionWithArgument ExternalActionWithArgs { get; init; }
-    = new ExternalActionWithArgument(
-        new Uri("http://www.example2.com"),
-        HttpMethod.DELETE,
-        "application/json",
-        new ExternalActionParameters(3));
-```
 
 ## Routes with a placeholder in the route template
 

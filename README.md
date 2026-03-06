@@ -2,8 +2,8 @@
 
 **Deployed here [https://restyard.github.io/RESTyard-Docs/](https://restyard.github.io/RESTyard-Docs/)**
 
-RUN  build: `docker run --rm --volume="${PWD}:/srv/jekyll:Z" -it jekyll/jekyll:latest /bin/bash -c "bundle install && bundle exec jekyll"`
-Preview: show with `http_server` in _site folder (node tool)
+RUN  build: `docker run --rm --volume="${PWD}:/srv/jekyll:Z" -w /srv/jekyll -it ruby:3.3-slim /bin/bash -c "apt-get update && apt-get install -y build-essential && bundle install && bundle exec jekyll build"`
+Preview: `docker run --rm --volume="${PWD}:/srv/jekyll:Z" -w /srv/jekyll -p 4000:4000 -it ruby:3.3-slim /bin/bash -c "apt-get update && apt-get install -y build-essential && bundle install && bundle exec jekyll serve --host 0.0.0.0 --livereload"`
 
 This is a *bare-minimum* template to create a [Jekyll] site that:
 

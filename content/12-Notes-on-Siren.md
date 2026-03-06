@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Notes on Siren
-nav_order: 11
+title: Deviations from Siren
+parent: Reference
+nav_order: 4
 ---
 
-# Notes on Siren
+# Deviations from Siren
 
 We use [Siren Hypermedia Format](https://github.com/kevinswiber/siren) for exchange. We like it a lot but have found some limitations which needed us to deviate from the standard.
 
@@ -108,10 +109,12 @@ Example:
         {
           "name": "UploadFiles",
           "type": "file",
-          "accept": ".png, image/*'",
+          "accept": ".png, image/*",
           "maxFileSizeBytes": 209715200,
           "allowMultiple": false
         }
       ]
-    },
+    }
+  ]
+}
 ```

@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Notes on serialization
-nav_order: 9
+title: Serialization
+parent: Reference
+nav_order: 2
 ---
 
-# Notes on serialization
+# Serialization
 
 - Enums in `HypermediaObjects` and Action parameters can be attributed using `EnumMember` to specify fixed string names for enum values. If no attribute is present the value will be serialized using `ToString()`
 - `DateTime` and `DateTimeOffset` will be serialized using ISO 8601 notation: e.g. `2000-11-22T18:05:32.9990000+02:00`
-- When properties contain classes the follwoing attributes are not applied:
+- When properties contain classes the following attributes are not applied:
   - `FormatterIgnoreHypermediaPropertyAttribute`
   - `HypermediaActionAttribute`
   - `HypermediaObjectAttribute`

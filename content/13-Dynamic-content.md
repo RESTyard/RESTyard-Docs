@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Dynamic content
-nav_order: 12
+title: Dynamic actions
+parent: Advanced
+nav_order: 2
 ---
 
-# Dynamic content
+# Dynamic actions
 
-Although the framework is build on the intend of providing type information as much as possible it can be necessary to deviate from this approach.
+Although the framework is built with the intent of providing type information as much as possible it can be necessary to deviate from this approach.
 
 ## Dynamic Actions
 {: .d-inline-block }
@@ -17,7 +18,7 @@ Although the framework is build on the intend of providing type information as m
 In certain scenarios an actions parameters (or not having any) is determined at runtime. This special case can be implemented using `DynamicHypermediaAction`.
 This action allows for a runtime dynamic schema to be retrieved. To decide what schema is desired it is required to pass runtime values to the schema routes.
 `DynamicHypermediaAction` has the property `SchemaRouteKeys` which accepts an object which will be passed to route generation so route keys can be filled with values.
-This also requires a custom route for the dynamic schemas using `[HttpGetHypermediaActionParameterInfo]`.
+This also requires a custom route for the dynamic schemas using `[HypermediaActionParameterInfoEndpoint<T>]`.
 For this to work the custom type route has to:
 
 - have route keys which match the properties in `SchemaRouteKeys` so they can be filled.
@@ -28,8 +29,9 @@ Prefilled values can be provided as object which will be serialized and as strin
 Example:
 ```csharp
 
-// Action route, retreiving raw json
-[HttpPostHypermediaAction("/MyDynamicAction", typeof(MyDynamicOp))]
+// Action route, retrieving raw json
+[HttpPost("/MyDynamicAction"),
+ HypermediaActionEndpoint<MyHto>(nameof(MyHto.MyDynamicOp))]
 public ActionResult MyDynamicAction([FromBody] JsonElement rawObject)
 {
     // check rawObject if it matches your dynamic schema if required
@@ -38,7 +40,8 @@ public ActionResult MyDynamicAction([FromBody] JsonElement rawObject)
 }
 
 // Dynamic schema route, will work next to default generated ones
-[HttpGetHypermediaActionParameterInfo("MyGenericParametersType/{schemaKey1}/{schemaKey2}", typeof(MyGenericParameters))] 
+[HttpGet("MyGenericParametersType/{schemaKey1}/{schemaKey2}"),
+ HypermediaActionParameterInfoEndpoint<MyGenericParameters>]
 public ActionResult MyGenericParametersType([FromRoute] string schemaKey1, [FromRoute] string schemaKey2)
 {
     // dynamic keys passed to the action are passed here by build URL so the schema can be selected 

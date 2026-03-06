@@ -1,10 +1,73 @@
 ---
 layout: default
-title: Release Notes
-nav_order: 10
+title: Release notes
+parent: Reference
+nav_order: 5
 ---
 
-# Release Notes
+# Release notes
+
+## RESTyard v6.0.2
+
+- Fix `KeyFromUriService` throwing on invalid URI input — now returns a proper error instead of an unhandled exception
+
+## RESTyard v6.0.1
+
+- Add `DateTime`, `DateTimeOffset`, and `TimeSpan` JSON schema generators
+- Target .NET 8 for the client library
+- Switch test assertions to AwesomeAssertions
+
+## RESTyard v6.0.0
+{: .d-inline-block }
+
+Breaking
+{: .label .label-red }
+
+- Migrate JSON schema generation from NJsonSchema to [JsonSchema.Net](https://github.com/gregsdennis/json-everything)
+- Introduce `IJsonSchemaFactory` interface — can be replaced via `AlternateJsonSchemaFactory` option
+- Add `FileUploadHypermediaAction<TParameter>` for file uploads with additional typed parameters
+- Add `ExternalFileUploadHypermediaAction` and `ExternalFileUploadHypermediaAction<TParameter>` for external file upload endpoints
+- New `HypermediaUploadParameterFromForm` attribute for binding file upload parameters from multipart form data
+- Roslyn analyzers included in NuGet package (RY0010–RY0015) to detect deprecated attribute usage and suggest migration
+
+## RESTyard v5.2.2
+
+- Fix invariant string comparison for culture-independent parameter matching
+- Add `DateOnly` and `TimeOnly` support in query string serialization
+
+## RESTyard v5.2.1
+
+- Extract pagination logic into reusable `NavigationQuerysBuilder` helper
+- Improve query result HTO patterns in CarShack demo
+
+## RESTyard v5.0.0
+{: .d-inline-block }
+
+Breaking
+{: .label .label-red }
+
+This is a major API redesign. The old base-class API (`HypermediaObject`, `Links.Add()`, `Entities.Add()`) is replaced with a marker-interface and typed-property API.
+
+**New API:**
+- `IHypermediaObject` marker interface replaces the `HypermediaObject` base class
+- `ILink<THto>` typed link properties with `[Relations(["..."])]` attribute replace `Links.Add()`
+- `List<IEmbeddedEntity<THto>>` with `EmbeddedEntity.Embed<T>()` replaces `Entities.Add()`
+- `Link.To()`, `Link.ByKey()`, `Link.ByQuery()`, `Link.External()` factory methods for creating links
+- `HypermediaObjectKeyBase<T>` record base for defining key types as nested records
+- `this.Created(ILink)` replaces `this.Created(HypermediaObject)`
+
+**New route attributes:**
+- `HypermediaObjectEndpoint<THto>` replaces `HttpGetHypermediaObject`
+- `HypermediaActionEndpoint<THto>(nameof(...))` replaces `HttpPostHypermediaAction`, `HttpDeleteHypermediaAction`, `HttpPatchHypermediaAction`
+- `HypermediaActionParameterInfoEndpoint<TParam>` replaces `HttpGetHypermediaActionParameterInfo`
+
+The legacy attributes are still supported but deprecated. The included Roslyn analyzers will suggest migration.
+
+## RESTyard v4.4.0
+
+- Switch internal URL generation from `IUrlHelper` to `LinkGenerator` for more reliable route resolution
+- Add `KeyFromUriService` for decomposing URLs back into key values (see [URL key extraction]({% link content/06-Url-key-extraction.md %}))
+- Add Razor template support in CarShack demo
 
 ## RESTyard v4.3.0
 

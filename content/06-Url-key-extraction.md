@@ -1,14 +1,26 @@
 ---
 layout: default
 title: URL key extraction
-nav_order: 6
+parent: Advanced
+nav_order: 1
 ---
 
 # URL key extraction
-{: .d-inline-block }
+{: .no_toc .d-inline-block }
 
 (v4.4.0)
 {: .label .label-green }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
 
 When it is required to reference an other resource as action parameter it is often required to get the identifying keys from the resources URL.
 To get the key properties from a URI an interface ``IKeyFromUriService`` can be obtained from the DI container:
@@ -16,17 +28,17 @@ To get the key properties from a URI an interface ``IKeyFromUriService`` can be 
 public interface IKeyFromUriService
 {
     Result<TKey> GetKeyFromUri<THto, TKey>(Uri uri)
-        where THto : HypermediaObject;
+        where THto : IHypermediaObject;
 }
 ```
 
 This service will, given the `Uri`, the type of the HypermediaObject, extract all the properties defined in `TKey` from the `Uri` and return a `Result<TKey>`.
-Not that since this results a `Result<>` object, no Exceptions will be thrown, and all error cases are handled by returning a `Result.Error` case.
+Note that since this returns a `Result<>` object, no Exceptions will be thrown, and all error cases are handled by returning a `Result.Error` case.
 
 ## Example
 
 ```csharp
-public class HypermediaCar : HypermediaObject
+public class HypermediaCarHto : IHypermediaObject
 {
     [Key("id")]
     public int? Id { get; set; }
@@ -47,7 +59,7 @@ public class Parameter : IHypermediaActionParameter
 
 Given a HTO definition and the parameter, the key(s) would be extracted like this:
 ```csharp
-var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCar, HypermediaCar.HypermediaCarKey>(parameter.CarUri);
+var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCarHto, HypermediaCarHto.HypermediaCarKey>(parameter.CarUri);
 ```
 
 ## Keys from Code Generation
@@ -58,7 +70,7 @@ var keyResult = keyFromUriService.GetKeyFromUri<HypermediaCar, HypermediaCar.Hyp
 
 If the RESTyard.Generator tool is used (template `server/csharp/v4.4`) to generate the HTOs from an XML schema, then the key object and an extension method are generated for each HTO to not have to specify the types explicitly:
 ```csharp
-var keyResult = keyFromUriService.GetHypermediaCarKeyFromUri(uri); // Returns Result<HypermediaCar.HypermediaCarKey>
+var keyResult = keyFromUriService.GetHypermediaCarKeyFromUri(uri); // Returns Result<HypermediaCarHto.HypermediaCarKey>
 ```
 
 # URL key extraction (legacy)
@@ -81,7 +93,7 @@ public class FavoriteCustomer : IHypermediaActionParameter
 }
 ```
 
-- The first parameter `typeof(HypermediaCustomer)` gives the expected `HypermediaObject` so the frame work knows which route layout it should use, and there to what kind of Resource the provided URL should lead.
+- The first parameter `typeof(HypermediaCustomer)` gives the expected `HypermediaObject` so the framework knows which route layout it should use, and to what kind of resource the provided URL should lead.
 - The second parameter `schemaProperyName: "Customer"` is to identify the property which holds the URL in the payload JSON object.
 
 {: .highlight }
@@ -116,6 +128,7 @@ public class FavoriteCustomer : IHypermediaActionParameter
     [KeyFromUri(typeof(HypermediaCustomer), schemaProperyName: "Customers")]
     public List<int> CustomerId { get; set; }
 }
+```
 
 The post would look like:
 
@@ -150,13 +163,13 @@ public class Parameter : IHypermediaActionParameter
 }
 ```
 
-Not two properties have an attribute indicating that they should be filled: `Brand` and `CarId`. Both share the same type of resource and `schemaProperyName` because the source of their value is a single URL in the JSON payload.
+Note: two properties have an attribute indicating that they should be filled: `Brand` and `CarId`. Both share the same type of resource and `schemaProperyName` because the source of their value is a single URL in the JSON payload.
 To configure which route template variable (see your attributed route) should be used to fill the parameter property `routeTemplateParameterName` is used.
 The route template: `{brand}/{key:int}`. Be careful to match the variable name and `routeTemplateParameterName`.
 
 The corresponding post would look like:
 
-``` csharp
+``` json
 [
   {
     "HypermediaActionCustomerBuysCar.Parameter": {

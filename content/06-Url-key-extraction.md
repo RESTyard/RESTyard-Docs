@@ -6,10 +6,21 @@ nav_order: 1
 ---
 
 # URL key extraction
-{: .d-inline-block }
+{: .no_toc .d-inline-block }
 
 (v4.4.0)
 {: .label .label-green }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
 
 When it is required to reference an other resource as action parameter it is often required to get the identifying keys from the resources URL.
 To get the key properties from a URI an interface ``IKeyFromUriService`` can be obtained from the DI container:
@@ -82,7 +93,7 @@ public class FavoriteCustomer : IHypermediaActionParameter
 }
 ```
 
-- The first parameter `typeof(HypermediaCustomer)` gives the expected `HypermediaObject` so the frame work knows which route layout it should use, and there to what kind of Resource the provided URL should lead.
+- The first parameter `typeof(HypermediaCustomer)` gives the expected `HypermediaObject` so the framework knows which route layout it should use, and to what kind of resource the provided URL should lead.
 - The second parameter `schemaProperyName: "Customer"` is to identify the property which holds the URL in the payload JSON object.
 
 {: .highlight }

@@ -6,6 +6,18 @@ nav_order: 2
 ---
 
 # Key concepts
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
 
 ## Siren Hypermedia Format
 

@@ -5,7 +5,7 @@ parent: Building your API
 nav_order: 5
 ---
 
-# Recommendations for route design
+# Route design
 {: .no_toc }
 
 <details open markdown="block">

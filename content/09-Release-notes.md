@@ -5,7 +5,7 @@ parent: Reference
 nav_order: 5
 ---
 
-# Release Notes
+# Release notes
 
 ## RESTyard v6.0.2
 

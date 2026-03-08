@@ -19,7 +19,7 @@ nav_order: 3
 
 ---
 
-Actions represent operations a client can perform on an HTO. They appear in the Siren `actions` array — but only when `CanExecute()` returns `true`.
+Actions represent operations a client can perform on an HTO. They appear in the Siren `actions` array — but only when the action property is non-null and `CanExecute()` returns `true`.
 
 ## Defining an action
 
@@ -72,6 +72,20 @@ var customerMove = new CustomerMoveOp(canExecute: () => customer.IsActive);
 ```
 
 If `CanExecute()` returns `false`, the action is omitted entirely from the response.
+
+## Null action properties
+
+As an alternative to the `CanExecute` gate, you can set an action property to `null` to omit it from the Siren output. This is useful when an action availability check is not done in `CanExecute()`:
+
+```csharp
+// Action is available — no CanExecute needed (defaults to always true)
+CustomerMove = new CustomerMoveOp();
+
+// Action is not available — null means omitted from Siren output
+CustomerMove = null;
+```
+
+All action base classes support a parameterless constructor that defaults `CanExecute` to `true`. This lets you use nullable action properties as the primary visibility mechanism. `CanExecute` is still availble to hold for conditional logic.
 
 ## Prefilled values
 
